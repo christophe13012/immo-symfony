@@ -10,6 +10,36 @@
 					<span class="sr-only">(current)</span>
 				</a>
 			</li>
+			<li class="nav-item {% if app.request.get('_route') == 'properties' %} active{% endif %}">
+				<a class="nav-link" href="{{path('properties')}}">Biens en vente
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li class="nav-item {% if app.request.get('_route') == 'admin' %} active{% endif %}">
+				<a class="nav-link" href="{{path('admin')}}">Admin
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			{% if not app.user %}
+				<li class="nav-item {% if app.request.get('_route') == 'app_login' %} active{% endif %}">
+					<a class="nav-link" href="{{path('app_login')}}">Se connecter
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item {% if app.request.get('_route') == 'app_register' %} active{% endif %}">
+					<a class="nav-link" href="{{path('app_register')}}">S'inscrire
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+			{% endif %}
 		</ul>
+		{% if app.user %}
+			<span class="ml-auto">
+				<span class="username">{{ app.user.username }}
+					-
+				</span>
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</span>
+		{% endif %}
 	</div>
 </nav>

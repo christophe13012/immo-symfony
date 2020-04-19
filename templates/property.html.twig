@@ -1,0 +1,53 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+	<div class="container mt-4">
+		<div class="container jumbotron">
+			<div class="row">
+				<div class="col"></div>
+				<div class="col-5">
+					<h3>{{property.title}}</h3>
+					<p>{{property.surface}}
+						m²</p>
+					<p class="price">{{property.price|number_format(0, '', ' ')}}
+						€</p>
+					<p>{{property.postalCode}}
+						-
+						{{property.city}}</p>
+					<p>
+						<button class="btn btn-primary">Contacter l'agence</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<p>{{property.description}}</p>
+			<div class="row">
+				<div class="col-6">
+					<h4>Caractéristiques</h4>
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<th scope="row">Surface</th>
+								<td>{{property.surface}}
+									m²</td>
+							</tr>
+							<tr>
+								<th scope="row">Chauffage</th>
+								<td>{{property.heat}}</td>
+							</tr>
+							<tr>
+								<th scope="row">...</th>
+								<td>...</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-6">
+					<h4>Spécificités</h4>
+					...
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

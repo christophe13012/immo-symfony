@@ -2,7 +2,7 @@
 
 {% block body %}
 	<div class="container mt-4">
-		<h2>Dernieres propriétés</h2>
+		<h2>Toutes les propriétés en vente</h2>
 		<div class="row">
 			{% for property in properties %}
 				<div class="col-3 m-4">
@@ -14,7 +14,6 @@
 						</div>
 						<div class="card-footer border-top-0">
 							<a href="{{ path('property', {'id': property.id}) }}" class="btn btn-primary">Voir</a>
-
 						</div>
 					</div>
 				</div>

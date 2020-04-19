@@ -5,3 +5,13 @@
   width: 50px;
   margin-right: 10px;
 }
+
+.username {
+  color: white;
+}
+
+.price {
+  color: #4285f4;
+  font-weight: bold;
+  font-size: 28px;
+}
