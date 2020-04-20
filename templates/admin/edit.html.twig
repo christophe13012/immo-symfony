@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container mt-4">
 		<h2>Editer ce bien</h2>
-		{{ form_start(form) }}
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 		<div class="row">
 			<div class="col">
 				{{ form_row(form.title) }}

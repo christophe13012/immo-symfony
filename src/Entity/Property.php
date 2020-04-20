@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  */
 class Property
 {
-    private $heatType = [0 => 'Electrique', 1 => "gaz"];
+    public $heatType = [0 => 'Electrique', 1 => "Gaz"];
 
     public function __construct()
     {
@@ -25,6 +26,13 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 35,
+     *      minMessage = "Le titre doit etre d'au moins {{ limit }} caractères",
+     *      maxMessage = "Le titre doit etre d'au plus {{ limit }} caractères",
+     *      allowEmptyString = false
+     * )
      */
     private $title;
 
@@ -122,6 +130,11 @@ class Property
     }
 
     public function getHeat(): ?string
+    {
+        return $this->heat;
+    }
+
+    public function getHeatType(): ?string
     {
         return $this->heatType[$this->heat];
     }

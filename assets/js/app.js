@@ -6,9 +6,22 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import '../css/app.css';
+import "../css/app.css";
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+import $ from "jquery";
+require("bootstrap");
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+$(function () {
+  $(".modal-btn").click(function () {
+    var data_var = $(this).data("id");
+    $(".modal-footer").append("<p>" + data_var + "</p>");
+    $(".modal-footer").append(
+      "<a href='admin/delete/" +
+        data_var +
+        '\' class="btn btn-danger">Supprimer</a>'
+    );
+  });
+});
+
+console.log("Hello Webpack Encore! Edit me in assets/js/app.js");

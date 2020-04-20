@@ -28,20 +28,40 @@ class AdminController extends AbstractController
     public function getEdit(PropertyRepository $repository, int $id, Request $request)
     {
         $property = $repository->find($id);
-        $form = $this->createForm(PropertyType::class, $property);
+        $form = $this->createForm(PropertyType::class, $property, [
+            'heatChoices' => $property->heatType
+        ]);
         $form->handlerequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $property = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($property);
             $entityManager->flush();
-            $this->addFlash('success', 'Article Created! Knowledge is power!');
+            $this->addFlash('success', 'Bien modifié avec succès');
             return $this->redirectToRoute('admin');
         }
         return $this->render('admin/edit.html.twig', [
             'controller_name' => 'AdminController',
             'property' => $property,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'choices' => $property->heatType
+        ]);
+    }
+
+    /**
+     * @Route("/admin/delete/{id}", name="admin.delete")
+     */
+    public function getDelete(PropertyRepository $repository, int $id, Request $request)
+    {
+        $property = $repository->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($property);
+        $entityManager->flush();
+        $this->addFlash('success', 'Bien supprimé avec succès');
+        return $this->redirectToRoute('admin');
+        return $this->render('admin/delete.html.twig', [
+            'controller_name' => 'AdminController',
+            'property' => $property
         ]);
     }
 }
