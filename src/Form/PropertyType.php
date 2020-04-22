@@ -2,12 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Option;
 use App\Entity\Property;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PropertyType extends AbstractType
 {
@@ -29,6 +32,12 @@ class PropertyType extends AbstractType
             ])
             ->add('postal_code')
             ->add('city')
+            ->add('options', EntityType::class, [
+                'class' => Option::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
+            ->add('imageFile', FileType::class, ['required' => false])
             ->add('sold');
     }
 

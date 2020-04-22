@@ -6,11 +6,15 @@
 		<div class="row">
 			{% for property in properties %}
 				<div class="col-3 m-4">
-					<div class="card" style="width: 18rem; height: 18rem;">
-						<img class="card-img-top" src="..." alt="Card image cap">
+					<div class="card" style="width: 18rem; height: 26rem;">
+						{% if property.filename %}
+							<img class="card-img-top" alt="card-img-top" src="{{vich_uploader_asset(property, 'imageFile') | imagine_filter('thumb')}}"/>
+						{% else %}
+							<img class="card-img-top thumb" src="/images/properties/maison1.jpg" alt="card-img-top"/>
+						{% endif %}
 						<div class="card-body">
 							<h5 class="card-title">{{property.title}}</h5>
-							<p class="card-text">{{property.description}}</p>
+							<p class="card-text">{{property.description|slice(0, 100) ~ '...'}}</p>
 						</div>
 						<div class="card-footer border-top-0">
 							<a href="{{ path('property', {'id': property.id}) }}" class="btn btn-primary">Voir</a>

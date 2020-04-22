@@ -15,7 +15,6 @@ require("bootstrap");
 $(function () {
   $(".modal-btn").click(function () {
     var data_var = $(this).data("id");
-    $(".modal-footer").append("<p>" + data_var + "</p>");
     $(".modal-footer").append(
       "<a href='admin/delete/" +
         data_var +
@@ -24,4 +23,13 @@ $(function () {
   });
 });
 
+require("select2");
+$("select").select2();
+var display = "none";
+$(".contact").click(function () {
+  var display = $(".contactForm")[0].style.display;
+  display === "none" || display === ""
+    ? $(".contactForm").css("display", "block")
+    : $(".contactForm").css("display", "none");
+});
 console.log("Hello Webpack Encore! Edit me in assets/js/app.js");

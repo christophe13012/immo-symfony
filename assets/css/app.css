@@ -15,3 +15,17 @@
   font-weight: bold;
   font-size: 28px;
 }
+
+.thumb {
+  height: 180px;
+  width: 286px;
+}
+
+.detail {
+  height: 360px;
+  width: 572px;
+}
+
+.contactForm {
+  display: none;
+}

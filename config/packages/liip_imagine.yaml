@@ -1,0 +1,11 @@
+liip_imagine:
+  driver: "gd"
+  filter_sets:
+    thumb:
+      quality: 75
+      filters:
+        thumbnail: { size: [286, 180], mode: outbound, allow_upscale: true }
+    detail:
+      quality: 75
+      filters:
+        thumbnail: { size: [572, 360], mode: outbound, allow_upscale: true }

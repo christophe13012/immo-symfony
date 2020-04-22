@@ -2,9 +2,16 @@
 
 {% block body %}
 	<div class="container mt-4">
+		{{dump(contact)}}
 		<div class="container jumbotron">
 			<div class="row">
-				<div class="col"></div>
+				<div class="col-7">
+					{% if property.filename %}
+						<img class="" src="{{vich_uploader_asset(property, 'imageFile') | imagine_filter('detail')}}"/>
+					{% else %}
+						<img class="detail" src="/images/properties/maison1.jpg"/>
+					{% endif %}
+				</div>
 				<div class="col-5">
 					<h3>{{property.title}}</h3>
 					<p>{{property.surface}}
@@ -15,39 +22,48 @@
 						-
 						{{property.city}}</p>
 					<p>
-						<button class="btn btn-primary">Contacter l'agence</button>
+						<button class="btn btn-primary contact">Contacter l'agence</button>
 					</p>
+					<div class="contactForm">
+						{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+						{{ form_row(form.name) }}
+						{{ form_row(form.email) }}
+						{{ form_row(form.message) }}
+						<button type="submit" class="btn btn-primary">Envoyer le mail</button>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="container">
-			<p>{{property.description}}</p>
-			<div class="row">
-				<div class="col-6">
-					<h4>Caractéristiques</h4>
-					<table class="table table-striped">
-						<tbody>
-							<tr>
-								<th scope="row">Surface</th>
-								<td>{{property.surface}}
-									m²</td>
-							</tr>
-							<tr>
-								<th scope="row">Chauffage</th>
-								<td>{{property.heat}}</td>
-							</tr>
-							<tr>
-								<th scope="row">...</th>
-								<td>...</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-6">
-					<h4>Spécificités</h4>
-					...
-				</div>
+				{{ form_end(form) }}
+
 			</div>
 		</div>
 	</div>
-{% endblock %}
+	<div class="container">
+		<p>{{property.description}}</p>
+		<div class="row">
+			<div class="col-6">
+				<h4>Caractéristiques</h4>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th scope="row">Surface</th>
+							<td>{{property.surface}}
+								m²</td>
+						</tr>
+						<tr>
+							<th scope="row">Chauffage</th>
+							<td>{{property.heat}}</td>
+						</tr>
+						<tr>
+							<th scope="row">...</th>
+							<td>...</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-6">
+				<h4>Spécificités</h4>
+				...
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}

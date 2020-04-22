@@ -37,12 +37,52 @@ class PropertyRepository extends ServiceEntityRepository
     /**
      * @return Property[] Returns an array of Property objects
      */
-    public function findAllOnMarket()
+    public function findAllOnMarket($search)
     {
-        return $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->andWhere('p.sold = :val')
             ->setParameter('val', 0)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'ASC');
+
+        if ($search->getCity()) {
+            $query = $query
+                ->andWhere('p.city = :val')
+                ->setParameter('val', $search->getCity());
+        }
+
+        if ($search->getMinSurface()) {
+            $query = $query
+                ->andWhere('p.surface >= :minSurface')
+                ->setParameter('minSurface', $search->getMinSurface());
+        }
+
+        if ($search->getMaxSurface()) {
+            $query = $query
+                ->andWhere('p.surface <= :maxSurface')
+                ->setParameter('maxSurface', $search->getMaxSurface());
+        }
+
+        if ($search->getMinPrice()) {
+            $query = $query
+                ->andWhere('p.price >= :minPrice')
+                ->setParameter('minPrice', $search->getMinPrice());
+        }
+
+        if ($search->getMaxPrice()) {
+            $query = $query
+                ->andWhere('p.price <= :maxPrice')
+                ->setParameter('maxPrice', $search->getMaxPrice());
+        }
+
+        if ($search->getOptions()->count() > 0) {
+            foreach ($search->getOptions() as $key => $option) {
+                $query = $query
+                    ->andWhere(":option$key MEMBER OF p.options")
+                    ->setParameter("option$key", $option);
+            }
+        }
+
+        return $query
             ->getQuery()
             ->getResult();
     }
